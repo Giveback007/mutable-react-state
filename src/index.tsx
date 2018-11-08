@@ -1,15 +1,22 @@
 import React = require("react");
 import ReactDOM = require("react-dom");
-import { proxyState } from "@giveback007/proxy-state";
-
-export const { store, subscribe } = proxyState({ num: 0 });
-window['state'] = store;
+import { proxyState, Store } from "@giveback007/proxy-state";
 
 /// /// ///
 const Context = React.createContext(null);
 
-class Provider extends React.Component {
-    state = { data: 'IT WORKS' };
+class Provider<T> extends React.Component<{ store: Store<T> }> {
+    unsubscribe: () => boolean;
+
+    componentDidMount() {
+        this.unsubscribe =
+            this.props.store.subscribe((value) => this.setState(value));
+    }
+
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
     render() {
         return (
             <Context.Provider value={this.state}>
@@ -19,28 +26,36 @@ class Provider extends React.Component {
     }
 }
 
-const App = () => (
-    
-        <Title />
-)
+const App = () => (<Title />)
 
-const Title = () => (
-    <Context.Consumer>
-        {(context) => <h1>{context.data}</h1>}
-    </Context.Consumer>
-)
 
-// function connect(mapStateToProps: (s) => any) {
-//     return (component) => {
-//         <Context.Consumer>
-//             {(context) => <h1>{context.data}</h1>}
-//         </Context.Consumer>
-//     }
-// }
 
-function connectAndRender(app: JSX.Element, rootId: string) {
-    // add arg to add state
-    ReactDOM.render(<Provider>{app}</Provider>, document.getElementById(rootId));
+function connectAndRender<S extends {}>(
+    app: () => React.ReactElement<any>,
+    container: Element,
+    initState = { } as S
+) {
+    const store = proxyState<S>(initState);
+
+    function connect<P>(mapStateToProps: (s: S) => P) {
+        return (Comp: (props: P) => JSX.Element) => {
+            const render = (context: S) => <Comp { ...mapStateToProps(context) } />
+            const { Consumer } = Context;
+            
+            return () => (<Consumer>{(context: S) => render(context)}</Consumer>)
+        }
+    }
+
+    ReactDOM.render(<Provider store={store}><App /></Provider>, container);
+
+    return { store, connect };
 }
 
-connectAndRender(<App />, 'app-root');
+/// /// ///
+const { store, connect } = connectAndRender(App, document.getElementById('app-root'), { title: 'I am a title' });
+
+const Title = connect((state) => state)(({ title }) => (
+    <h1>{title}</h1>
+))
+
+window['store'] = store;

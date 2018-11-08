@@ -1,5 +1,5 @@
 {
-  "name": "react-proxy-state-connect",
+  "name": "mutable-react-state",
   "description": "",
   "version": "0.0.1",
   "main": "index.html",
@@ -8,7 +8,7 @@
     "webpack-serve": "node_modules/.bin/webpack-dev-server --open"
   },
   "dependencies": {
-    "@giveback007/proxy-state": "^1.1.1",
+    "@giveback007/proxy-state": "^1.2.4",
     "@giveback007/util-lib": "^0.2.0",
     "react-dom": "16.6.1",
     "react": "16.6.1"
