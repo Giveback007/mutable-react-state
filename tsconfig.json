@@ -14,7 +14,7 @@
     "sourceMap": true,                          /* Generates corresponding '.map' file. */
     // "allowJs": true,                         /* Allow javascript files to be compiled. */
     // "checkJs": true,                         /* Report errors in .js files. */
-    // "declaration": true,                     /* Generates corresponding '.d.ts' file. */
+    "declaration": true,                     /* Generates corresponding '.d.ts' file. */
     // "outFile": "./index.js",                 /* Concatenate and emit output to single file. */
     "removeComments": true,                     /* Do not emit comments to output. */
     // "noEmit": true,                          /* Do not emit outputs. */
@@ -61,5 +61,9 @@
   "include": [
     "./src/**/*"
   ],
+  
+  "exclude": [
+    "node_modules"
+  ]
 }
 

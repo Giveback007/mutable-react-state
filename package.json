@@ -1,15 +1,22 @@
 {
-  "name": "mutable-react-state",
-  "description": "",
-  "version": "0.0.1",
-  "main": "index.html",
+  "name": "@giveback007/mutable-react-state",
+  "description": "Mutable react state management lib",
+  "version": "0.0.3",
+  "main": "index.js",
   "scripts": {
     "start": "code . && npm run webpack-serve",
-    "webpack-serve": "node_modules/.bin/webpack-dev-server --open"
+    "webpack-serve": "node_modules/.bin/webpack-dev-server --open",
+    "build": "del dist /s /f /q && tsc"
   },
+  "files": [
+    "/dist",
+    "/src"
+  ],
+  "keywords": [],
+  "author": "Dovydas Stirpeika <dovy91@gmail.com>",
+  "license": "ISC",
   "dependencies": {
     "@giveback007/proxy-state": "^1.2.4",
-    "@giveback007/util-lib": "^0.2.0",
     "react-dom": "16.6.1",
     "react": "16.6.1"
   },
