@@ -1,1 +1,0 @@
-npm install && git init && git add -A && git commit -m "Initial commit" && code . && exit

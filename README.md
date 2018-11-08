@@ -1,8 +1,4 @@
 # React Proxy State Connect
 
-The project can be viewed here:
-
-<!-- [View The Page](fix-me) -->
-
 ### Goals:
-<!-- * Do something -->
+* Test performance, component should only re-render on appropriate changes
