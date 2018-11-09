@@ -16,6 +16,8 @@ export class Provider<T> extends React.Component<{ store: Store<T> }> {
     }
 
     render() {
+        if (!this.state) return null;
+        
         return (
             <Context.Provider value={this.state}>
                 {this.props.children}
